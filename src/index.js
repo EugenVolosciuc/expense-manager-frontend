@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+
+import App from './App'
+
+import 'react-calendar/dist/Calendar.css'
+import './styles/tailwind.output.css'
+import './styles/tailwind.css'
+import './styles/style.scss'
+import './styles/hamburger.css'
+
+const AlertTemplate = ({ style, options, message, close }) => (
+	<div className="p-4 bg-gray-200 rounded mt-4 border-2">
+		{options.type === 'info' && <i aria-hidden className="fas fa-exclamation fa-lg mr-2 text-yellow-400"></i>}
+		{options.type === 'success' && <i aria-hidden className="fas fa-check fa-lg mr-2 text-green-400"></i>}
+		{options.type === 'error' && <i aria-hidden className="fas fa-times fa-lg mr-2 text-red-400"></i>}
+		{message}
+	</div>
+)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+	<AlertProvider template={AlertTemplate} timeout={3000}>
+		<App />
+	</AlertProvider>,
+	document.getElementById('root')
+)
