@@ -25,9 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-tooltip": "^4.2.7",
-    "sass": "^1.26.10",
-    "swr": "^0.2.3",
-    "tailwindcss": "^1.5.2"
+    "swr": "^0.2.3"
   },
   "scripts": {
     "build:tailwind": "tailwind build src/styles/tailwind.css -o src/styles/tailwind.output.css",
@@ -54,5 +52,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "autoprefixer": "^9.8.5",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.5.2"
+  }
 }

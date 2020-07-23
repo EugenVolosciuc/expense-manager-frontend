@@ -1,4 +1,4 @@
-// React modal transition
+/* React modal transition */
 .ReactModal__Overlay {
     opacity: 0;
     transition: opacity 250ms ease-in-out;
@@ -12,7 +12,7 @@
     opacity: 0;
 }
 
-// Custom checkbox
+/* Custom checkbox */
 .checkmark {
     position: absolute;
     top: 2px;
@@ -30,7 +30,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .checkbox-container input:checked ~ .checkmark {
-    @apply bg-accent;
+    background-color: #337DDE;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -58,13 +58,9 @@ content: "";
     transform: rotate(45deg);
 }
 
-// Calendar overwrite 
-.react-calendar__tile {
-    position: relative;
-
-    .__react_component_tooltip.show {
-        opacity: 1;
-    }
+/* Calendar overwrite  */
+.react-calendar__tile .__react_component_tooltip.show {
+    opacity: 1;
 }
 
 .tooltip-hoverable-item {
@@ -76,9 +72,11 @@ content: "";
 }
 
 .react-calendar__tile:enabled:hover {
-    @apply bg-secondary text-black;
+    background-color: #DAF2F0;
+    color: #000;
 }
 
 .react-calendar__tile--now {
-    @apply bg-yellow-400 text-black;
+    background-color: #f6e05e;
+    color: #000;
 }

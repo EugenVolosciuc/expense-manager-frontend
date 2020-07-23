@@ -7,7 +7,7 @@ import App from './App'
 import 'react-calendar/dist/Calendar.css'
 import './styles/tailwind.output.css'
 import './styles/tailwind.css'
-import './styles/style.scss'
+import './styles/style.css'
 import './styles/hamburger.css'
 
 const AlertTemplate = ({ style, options, message, close }) => (

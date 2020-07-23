@@ -35,8 +35,6 @@ const ExpensePaymentsCalendarModal = ({ expense, isOpen, handleClose }) => {
 
     if (!expense) return null
 
-    const handleDateChange = date => console.log("date", date)
-
     const checkIfPaymentDoneThisDay = day => {
         return payments.find(payment => {
             return dayjs(payment.paydate).isSame(dayjs(day), 'day')
@@ -85,7 +83,6 @@ const ExpensePaymentsCalendarModal = ({ expense, isOpen, handleClose }) => {
                 activeStartDate={activeStartDate}
                 view="month"
                 className="w-full border-0"
-                onChange={handleDateChange}
             />
         </Modal>
     )

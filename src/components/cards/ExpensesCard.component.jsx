@@ -58,7 +58,7 @@ const ExpensesCard = () => {
             />
             <Card
                 className="lg:h-full"
-                title={<span className="font-bold">Expenses</span>}
+                title={<span className="font-bold">Expense types</span>}
                 extra={<i aria-hidden onClick={() => setShowAddExpenseModal(!showAddExpenseModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}>
                 {
                     showSkeleton && <Skeleton height={40} count={5} />
