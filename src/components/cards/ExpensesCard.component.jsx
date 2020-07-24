@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { isNull, get, isEmpty } from 'lodash'
 import useSWR, { mutate } from 'swr'
-import Skeleton from 'react-loading-skeleton'
 
-import { Card, Empty } from '../UI'
+import { Card, Empty, Loader } from '../UI'
 import AddExpenseModal from '../modals/AddExpenseModal.component'
 import AddExpensePaymentModal from '../modals/AddExpensePaymentModal.component'
 import ExpensePaymentsCalendarModal from '../modals/ExpensePaymentsCalendarModal.component'
@@ -19,7 +18,7 @@ const ExpensesCard = () => {
     const { user, userIsLoading } = useAuth()
     const { data: { data: expenses } = {}, isValidating } = useSWR(userIsLoading ? false : '/expenses/stats', API.get)
 
-    const showSkeleton = isValidating || userIsLoading
+    const showLoader = isValidating || userIsLoading
 
     const toggleModal = (setter, id) => {
         if (id) {
@@ -59,12 +58,15 @@ const ExpensesCard = () => {
             <Card
                 className="lg:h-full"
                 title={<span className="font-bold">Expense types</span>}
-                extra={<i aria-hidden onClick={() => setShowAddExpenseModal(!showAddExpenseModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}>
+                extra={<i onClick={() => setShowAddExpenseModal(!showAddExpenseModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}>
                 {
-                    showSkeleton && <Skeleton height={40} count={5} />
+                    showLoader && 
+                    <div className="p-8 text-center">
+                        <Loader size="fa-2x"/>
+                    </div>
                 }
                 {
-                    !showSkeleton && !isEmpty(expenses) &&
+                    !showLoader && !isEmpty(expenses) &&
                     <ul>
                         {
                             expenses.map(expense => (
@@ -78,11 +80,9 @@ const ExpensesCard = () => {
                                         <span>
                                             {renderPaymentStatus(expense.paymentStatus)}
                                             <i
-                                                aria-hidden
                                                 onClick={() => toggleModal(setShowAddExpensePaymentModal, expense._id)}
                                                 className="fas fa-plus cursor-pointer mr-4 hover:text-accent" />
                                             <i
-                                                aria-hidden
                                                 onClick={() => toggleModal(setShowExpensePaymentsCalendarModal, expense._id)}
                                                 className="fas fa-calendar-alt cursor-pointer hover:text-accent" />
                                         </span>
@@ -93,7 +93,7 @@ const ExpensesCard = () => {
                     </ul>
 
                 }
-                { !showSkeleton && isEmpty(expenses) && <Empty message="No expenses found. Try adding one in the right corner above." />}
+                { !showLoader && isEmpty(expenses) && <Empty textClassName="text-center" message="No expenses found. Try adding one in the right corner above." />}
             </Card>
         </>
     )

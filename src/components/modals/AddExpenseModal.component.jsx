@@ -6,6 +6,7 @@ import { mutate } from 'swr'
 
 import { Modal, Input, Button, Select, Checkbox, InputError } from '../UI'
 import { API, requestErrorHandler } from '../../services'
+import { EXPENSE_CATEGORIES } from '../../constants'
 
 const AddExpenseModal = ({ isOpen, handleClose }) => {
     const { register, handleSubmit, watch, errors } = useForm()
@@ -16,6 +17,7 @@ const AddExpenseModal = ({ isOpen, handleClose }) => {
             title: data.title,
             type: data.type,
             recurrent: data.is_recurrent,
+            category: data.category,
             ...(data.is_recurrent && { amount: data.amount, payday: data.payday }),
             ...(!isNil(data.remind_date) && { remindDate: data.remind_date })
         }
@@ -50,7 +52,26 @@ const AddExpenseModal = ({ isOpen, handleClose }) => {
                 <Input label="Expense title" name="title" hookRef={register({ required: 'Title is required' })} />
                 <InputError errors={errors} name="title" />
                 <Select
-                    hookRef={register({ required: 'Payment period is required' })}
+                    defaultBlank
+                    hookRef={register({ 
+                        required: 'Category is required',
+                        validate: {
+                            notNil: value => !isNil(value) || 'You have to choose a category'
+                        }
+                    })}
+                    name="category"
+                    label="Category"
+                    options={Object.values(EXPENSE_CATEGORIES).map(category => ({ value: category.tag, label: category.label }))}
+                />
+                <InputError errors={errors} name="category" />
+                <Select
+                    defaultBlank
+                    hookRef={register({ 
+                        required: 'Payment period is required',
+                        validate: {
+                            notNil: value => !isNil(value) || 'You have to choose a payment period'
+                        }
+                    })}
                     name="type"
                     label="Payment period"
                     options={[

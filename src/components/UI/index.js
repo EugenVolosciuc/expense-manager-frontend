@@ -9,6 +9,7 @@ import InputError from './InputError.component'
 import DatePickerInput from './DatePickerInput.component'
 import TextArea from './TextArea.component'
 import Empty from './Empty.component'
+import Loader from './Loader.component'
 
 export {
     Input,
@@ -21,5 +22,6 @@ export {
     InputError,
     DatePickerInput,
     TextArea,
-    Empty
+    Empty,
+    Loader
 }

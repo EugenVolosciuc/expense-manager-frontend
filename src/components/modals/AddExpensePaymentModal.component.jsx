@@ -20,6 +20,7 @@ const AddExpensePaymentModal = ({ expense, isOpen, handleClose }) => {
             expense: expense._id,
             amount: data.amount,
             paydate: dayjs(data.paydate, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+            category: expense.category,
             ...(!isNil(data.details) && { details: data.details })
         }
 
@@ -28,6 +29,7 @@ const AddExpensePaymentModal = ({ expense, isOpen, handleClose }) => {
             mutate('/expenses/stats')
             handleClose()
             alert.success('Payment created successfully')
+            window.location.reload()
         } catch (error) {
             requestErrorHandler(error, alert)
         }

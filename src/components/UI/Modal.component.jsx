@@ -33,7 +33,7 @@ const Modal = ({ handleClose, isOpen, children, title, extra, footer, maxWidth =
                     <div>{title}</div>
                     <div>
                         <div>{extra}</div>
-                        <i aria-hidden className="fas fa-times cursor-pointer" onClick={handleClose}></i>
+                        <i className="fas fa-times cursor-pointer" onClick={handleClose}></i>
                     </div>
                 </div>
             </div>

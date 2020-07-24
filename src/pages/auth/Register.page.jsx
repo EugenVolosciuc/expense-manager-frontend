@@ -1,8 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { isNil } from 'lodash'
 
 import BaseLayout from '../../components/layouts/BaseLayout.component'
-import { Input, Button, Select } from '../../components/UI'
+import { Input, Button, Select, InputError } from '../../components/UI'
 import useAuth from '../../components/contexts/AuthContext'
 import { CURRENCIES } from '../../constants'
 
@@ -24,14 +25,25 @@ const SignUp = () => {
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col">
                     {/* TODO: add error inputs */}
-                    <Input label="Username" name="username" hookRef={register({ required: true })} />
-                    <Input label="Email" name="email" type="email" hookRef={register({ required: true })} />
-                    <Input label="Password" name="password" type="password" hookRef={register({ required: true })} />
+                    <Input label="Username" name="username" hookRef={register({ required: 'Username is required' })} />
+                    <InputError errors={errors} name="username" />
+                    <Input label="Email" name="email" type="email" hookRef={register({ required: 'Email is required' })} />
+                    <InputError errors={errors} name="email" />
+                    <Input label="Password" name="password" type="password" hookRef={register({ required: 'Password is required' })} />
+                    <InputError errors={errors} name="password" />
                     <Select
+                        defaultBlank
                         label="Currency"
                         name="currency"
-                        hookRef={register({ required: true })}
-                        options={Object.values(CURRENCIES).map(currency => ({ value: currency.tag, label: currency.label }))} />
+                        hookRef={register({ 
+                            required: 'Currency is required',
+                            validate: {
+                                notNil: value => !isNil(value) || 'You have to choose a currency'
+                            }
+                        })}
+                        options={Object.values(CURRENCIES).map(currency => ({ value: currency.tag, label: currency.label }))} 
+                    />
+                    <InputError errors={errors} name="currency" />
                     <Button>Register</Button>
                 </form>
             </div>

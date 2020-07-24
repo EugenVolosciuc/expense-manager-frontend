@@ -52,7 +52,7 @@ const ExpensePaymentsCalendarModal = ({ expense, isOpen, handleClose }) => {
                 tileClassName={details => {
                     if (!isEmpty(payments)) {
                         const paymentDoneThisDay = checkIfPaymentDoneThisDay(details.date)
-                        if (paymentDoneThisDay) return 'bg-main text-white'
+                        if (paymentDoneThisDay) return 'bg-main text-white relative'
                     }
                 }}
                 tileContent={details => {

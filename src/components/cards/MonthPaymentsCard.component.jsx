@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { isNull, get, isEmpty } from 'lodash'
-import Skeleton from 'react-loading-skeleton'
 import dayjs from 'dayjs'
 
-import { Card, Empty } from '../UI'
+import { Card, Empty, Loader } from '../UI'
 import AddPaymentModal from '../modals/AddPaymentModal.component'
 import useAuth from '../contexts/AuthContext'
 import API from '../../services/api'
@@ -12,15 +11,17 @@ import { CURRENCIES } from '../../constants'
 const MonthPaymentsCard = () => {
     const [paymentsData, setPaymentsData] = useState({})
     const [showAddPaymentModal, setShowAddPaymentModal] = useState(false)
+    const [loadingPayments, setLoadingPayments] = useState(false)
 
     const currentTime = dayjs()
     const { user, userIsLoading } = useAuth()
 
-    const showSkeleton = userIsLoading
+    const showLoader = userIsLoading || loadingPayments
 
     useEffect(() => {
         (async () => {
             try {
+                setLoadingPayments(true)
                 const response = await API.get('/payments', {
                     params: {
                         filterBy: {
@@ -34,7 +35,7 @@ const MonthPaymentsCard = () => {
             } catch (error) {
                 console.log(error) // No need to show the alert box
             }
-
+            setLoadingPayments(false)
         })()
     }, [])
 
@@ -53,9 +54,9 @@ const MonthPaymentsCard = () => {
                         <span className="text-gray-600">({currentTime.startOf('month').format('D')} - {currentTime.endOf('month').format('D MMMM')})</span>
                     </>
                 }
-                extra={<i aria-hidden onClick={() => setShowAddPaymentModal(!showAddPaymentModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}
+                extra={<i onClick={() => setShowAddPaymentModal(!showAddPaymentModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}
                 footerContent={
-                    !showSkeleton && !isEmpty(paymentsData) &&
+                    !showLoader && !isEmpty(paymentsData) &&
                     <div className="flex justify-between w-full">
                         <span className="font-bold">Total:</span>
                         <span className={`font-bold ${paymentsData.payments.length > 5 ? 'mr-3' : ''}`}>{paymentsData.total} {CURRENCIES[user.currency].currencyPlural}</span>
@@ -63,10 +64,13 @@ const MonthPaymentsCard = () => {
                 }
             >
                 {
-                    showSkeleton && <Skeleton height={40} count={5} />
+                    showLoader &&
+                    <div className="p-8 text-center">
+                        <Loader size="fa-2x"/>
+                    </div>
                 }
                 {
-                    !showSkeleton && !isEmpty(paymentsData) &&
+                    !showLoader && !isEmpty(paymentsData) &&
                     <ul>
                         {
                             paymentsData.payments.map(payment => (
@@ -86,7 +90,7 @@ const MonthPaymentsCard = () => {
                         }
                     </ul>
                 }
-                {!showSkeleton && isEmpty(paymentsData) && <Empty message="No payments found. Try adding one in the right corner above." />}
+                {!showLoader && isEmpty(paymentsData) && <Empty textClassName="text-center" message="No payments found. Try adding one in the right corner above." />}
             </Card>
         </>
     )
