@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { isNull, get, isEmpty } from 'lodash'
 import useSWR, { mutate } from 'swr'
 
-import { Card, Empty, Loader } from '../UI'
+import { Card, Empty, Loader, Tooltip } from '../UI'
 import AddExpenseModal from '../modals/AddExpenseModal.component'
 import AddExpensePaymentModal from '../modals/AddExpensePaymentModal.component'
 import ExpensePaymentsCalendarModal from '../modals/ExpensePaymentsCalendarModal.component'
 import useAuth from '../contexts/AuthContext'
 import API from '../../services/api'
-import { PAYMENT_STATS } from '../../constants'
+import { PAYMENT_STATS, EXPENSE_CATEGORIES } from '../../constants'
 
 const ExpensesCard = () => {
     const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
@@ -39,6 +39,8 @@ const ExpensesCard = () => {
         }
     }
 
+    console.log("Object.values(EXPENSE_CATEGORIES)", Object.values(EXPENSE_CATEGORIES))
+
     return (
         <>
             <AddExpensePaymentModal
@@ -60,9 +62,9 @@ const ExpensesCard = () => {
                 title={<span className="font-bold">Expense types</span>}
                 extra={<i onClick={() => setShowAddExpenseModal(!showAddExpenseModal)} className="fas fa-plus cursor-pointer hover:text-accent"></i>}>
                 {
-                    showLoader && 
+                    showLoader &&
                     <div className="p-8 text-center">
-                        <Loader size="fa-2x"/>
+                        <Loader size="fa-2x" />
                     </div>
                 }
                 {
@@ -81,10 +83,19 @@ const ExpensesCard = () => {
                                             {renderPaymentStatus(expense.paymentStatus)}
                                             <i
                                                 onClick={() => toggleModal(setShowAddExpensePaymentModal, expense._id)}
-                                                className="fas fa-plus cursor-pointer mr-4 hover:text-accent" />
+                                                className="fas fa-plus cursor-pointer mr-4 hover:text-accent"
+                                            />
                                             <i
                                                 onClick={() => toggleModal(setShowExpensePaymentsCalendarModal, expense._id)}
-                                                className="fas fa-calendar-alt cursor-pointer hover:text-accent" />
+                                                className="fas fa-calendar-alt cursor-pointer mr-4 hover:text-accent"
+                                            />
+                                            <Tooltip
+                                                id={`Tooltip for expenseID - ${expense._id}`}
+                                                togglerElement={<i className={`relative ${EXPENSE_CATEGORIES[expense.category].icon}`} />}
+                                                tooltipContent={
+                                                    <p>{EXPENSE_CATEGORIES[expense.category].label}</p>
+                                                }
+                                            />
                                         </span>
                                     </div>
                                 </li>
@@ -93,7 +104,7 @@ const ExpensesCard = () => {
                     </ul>
 
                 }
-                { !showLoader && isEmpty(expenses) && <Empty textClassName="text-center" message="No expenses found. Try adding one in the right corner above." />}
+                {!showLoader && isEmpty(expenses) && <Empty textClassName="text-center" message="No expenses found. Try adding one in the right corner above." />}
             </Card>
         </>
     )

@@ -10,6 +10,7 @@ import DatePickerInput from './DatePickerInput.component'
 import TextArea from './TextArea.component'
 import Empty from './Empty.component'
 import Loader from './Loader.component'
+import Tooltip from './Tooltip.component'
 
 export {
     Input,
@@ -23,5 +24,6 @@ export {
     DatePickerInput,
     TextArea,
     Empty,
-    Loader
+    Loader,
+    Tooltip
 }

@@ -30,56 +30,56 @@ const EXPENSE_CATEGORIES = {
     CULTURE: {
         tag: 'CULTURE',
         label: 'Culture',
-        icon: '',
+        icon: 'fas fa-theater-mask',
         bgColor: '',
         textColor: ''
     },
     HOUSEHOLD: {
         tag: 'HOUSEHOLD',
         label: 'Household',
-        icon: '',
+        icon: 'fas fa-home',
         bgColor: '',
         textColor: ''
     },
     APPAREL: {
         tag: 'APPAREL',
         label: 'Apparel',
-        icon: '',
+        icon: 'fas fa-tshirt',
         bgColor: '',
         textColor: ''
     },
     BEAUTY: {
         tag: 'BEAUTY',
         label: 'Beauty',
-        icon: '',
+        icon: 'fas fa-eye',
         bgColor: '',
         textColor: ''
     },
     HEALTH: {
         tag: 'HEALTH',
         label: 'Health',
-        icon: '',
+        icon: 'fas fa-file-medical',
         bgColor: '',
         textColor: ''
     },
     EDUCATION: {
         tag: 'EDUCATION',
         label: 'Education',
-        icon: '',
+        icon: 'fas fa-book',
         bgColor: '',
         textColor: ''
     },
     GIFT: {
         tag: 'GIFT',
         label: 'Gift',
-        icon: '',
+        icon: 'fas fa-gifts',
         bgColor: '',
         textColor: ''
     },
     OTHER: {
         tag: 'OTHER',
         label: 'Other',
-        icon: '',
+        icon: 'fas fa-random',
         bgColor: '',
         textColor: ''
     }

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import dayjs from 'dayjs'
-import ReactTooltip from "react-tooltip"
 
-import { Modal } from '../UI'
+import { Modal, Tooltip } from '../UI'
 import { API } from '../../services'
 import { isEmpty } from 'lodash'
 
@@ -12,7 +11,7 @@ const ExpensePaymentsCalendarModal = ({ expense, isOpen, handleClose }) => {
     const [payments, setPayments] = useState({})
 
     useEffect(() => {
-        if (!expense) return 
+        if (!expense) return
 
         (async () => {
             try {
@@ -60,21 +59,17 @@ const ExpensePaymentsCalendarModal = ({ expense, isOpen, handleClose }) => {
                         const paymentDoneThisDay = checkIfPaymentDoneThisDay(details.date)
                         if (paymentDoneThisDay) {
                             return <>
-                                <p data-tip data-for={paymentDoneThisDay._id} className="tooltip-hoverable-item"></p>
-                                <ReactTooltip
-                                    effect="solid"
-                                    delayHide={200}
-                                    backgroundColor="#edf2f7"
-                                    border={true}
-                                    borderColor="#cbd5e0"
-                                    textColor="#333"
-                                    id={paymentDoneThisDay._id} 
-                                    type="info">
-                                    <div className="flex flex-col text-left">
-                                        <p>Amount: {paymentDoneThisDay.amount}</p>
-                                        {paymentDoneThisDay.details && <p>Details: {paymentDoneThisDay.details}</p>}
-                                    </div>
-                                </ReactTooltip>
+                                <Tooltip
+                                    forCalendar
+                                    id={paymentDoneThisDay._id}
+                                    togglerElement={<p></p>}
+                                    tooltipContent={
+                                        <div className="flex flex-col text-left">
+                                            <p>Amount: {paymentDoneThisDay.amount}</p>
+                                            {paymentDoneThisDay.details && <p>Details: {paymentDoneThisDay.details}</p>}
+                                        </div>
+                                    }
+                                />
                             </>
                         }
                     }
