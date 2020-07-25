@@ -39,8 +39,6 @@ const ExpensesCard = () => {
         }
     }
 
-    console.log("Object.values(EXPENSE_CATEGORIES)", Object.values(EXPENSE_CATEGORIES))
-
     return (
         <>
             <AddExpensePaymentModal

@@ -3,85 +3,97 @@ const EXPENSE_CATEGORIES = {
         tag: 'FOOD',
         label: 'Food',
         icon: 'fas fa-utensils',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#BEB8EB',
+        textColor: '#000',
+        chartColorCode: 0
     },
     SOCIAL_LIFE: {
         tag: 'SOCIAL_LIFE',
         label: 'Social life',
         icon: 'fas fa-users',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#5299D3',
+        textColor: '#FFF',
+        chartColorCode: 1
     },
     SELF_DEVELOPMENT: {
         tag: 'SELF_DEVELOPMENT',
         label: 'Self Development',
         icon: 'fas fa-child',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#0B5563',
+        textColor: '#FFF',
+        chartColorCode: 2
     },
     TRANSPORTATION: {
         tag: 'TRANSPORTATION',
         label: 'Transportation',
         icon: 'fas fa-subway',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#A2BCE0',
+        textColor: '#000',
+        chartColorCode: 3
     },
     CULTURE: {
         tag: 'CULTURE',
         label: 'Culture',
         icon: 'fas fa-theater-mask',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#5E5C6C',
+        textColor: '#FFF',
+        chartColorCode: 4
     },
     HOUSEHOLD: {
         tag: 'HOUSEHOLD',
         label: 'Household',
         icon: 'fas fa-home',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#151E3F',
+        textColor: '#FFF',
+        chartColorCode: 5
     },
     APPAREL: {
         tag: 'APPAREL',
         label: 'Apparel',
         icon: 'fas fa-tshirt',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#FF9F1C',
+        textColor: '#000',
+        chartColorCode: 6
     },
     BEAUTY: {
         tag: 'BEAUTY',
         label: 'Beauty',
         icon: 'fas fa-eye',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#59F8E8',
+        textColor: '#000',
+        chartColorCode: 7
     },
     HEALTH: {
         tag: 'HEALTH',
         label: 'Health',
         icon: 'fas fa-file-medical',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#941C2F',
+        textColor: '#FFF',
+        chartColorCode: 8
     },
     EDUCATION: {
         tag: 'EDUCATION',
         label: 'Education',
         icon: 'fas fa-book',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#62466B',
+        textColor: '#FFF',
+        chartColorCode: 9
     },
     GIFT: {
         tag: 'GIFT',
         label: 'Gift',
         icon: 'fas fa-gifts',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#E71D36',
+        textColor: '#FFF',
+        chartColorCode: 10
     },
     OTHER: {
         tag: 'OTHER',
         label: 'Other',
         icon: 'fas fa-random',
-        bgColor: '',
-        textColor: ''
+        bgColor: '#FFFAFF',
+        textColor: '#000',
+        chartColorCode: 11
     }
 }
 

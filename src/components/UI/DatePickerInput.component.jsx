@@ -4,9 +4,6 @@ import dayjs from 'dayjs'
 
 import { Input } from './index'
 
-// const customParseFormat = require('dayjs/plugin/customParseFormat')
-// dayjs.extend(customParseFormat)
-
 const DATE_FORMAT = 'DD-MM-YYYY'
 
 const DatePickerInput = ({ hookRef, label, name, placeholder }) => {
