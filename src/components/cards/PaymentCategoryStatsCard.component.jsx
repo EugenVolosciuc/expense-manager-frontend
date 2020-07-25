@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { isNull, get, isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'
 import {
     VerticalBarSeries,
     XYPlot,
     VerticalGridLines,
     HorizontalGridLines,
     XAxis,
-    YAxis
+    YAxis,
+    DiscreteColorLegend
 } from 'react-vis'
 
 import { Card, Loader } from '../UI'
 import API from '../../services/api'
 import useAuth from '../contexts/AuthContext'
-import { EXPENSE_CATEGORIES, CURRENCIES } from '../../constants'
+import { EXPENSE_CATEGORIES } from '../../constants'
 
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 
@@ -111,6 +112,23 @@ const PaymentCategoryStatsCard = () => {
                 return -1
             }
         })
+    
+    const graphLegend = Object.values(payments).reduce((accumulatorArr, monthGroup) => {
+        Object.entries(monthGroup).forEach(([categoryTag, payments]) => {
+            console.log(accumulatorArr)
+            if (!accumulatorArr.some(legendItem => legendItem.title === EXPENSE_CATEGORIES[categoryTag].label)) {
+                accumulatorArr.push({
+                    title: EXPENSE_CATEGORIES[categoryTag].label,
+                    color: EXPENSE_CATEGORIES[categoryTag].bgColor,
+                    strokeWidth: 6
+                })
+            }
+        })
+
+        return accumulatorArr
+    }, [])
+
+    console.log(graphLegend)
 
     return (
         <Card
@@ -124,18 +142,19 @@ const PaymentCategoryStatsCard = () => {
             }
             {
                 !showLoader && !isEmpty(payments) &&
-                <div className="h-full flex justify-around align-middle">
-                    <XYPlot 
-                        width={800} 
-                        height={300} 
-                        stackBy="y" 
+                <div className="h-full flex justify-center items-center">
+                    <XYPlot
+                        width={750}
+                        height={250}
+                        stackBy="y"
                         xType="ordinal"
                         colorRange={Object.values(EXPENSE_CATEGORIES).map(category => category.bgColor)}
                         colorDomain={Object.values(EXPENSE_CATEGORIES).map(category => category.chartColorCode)}>
-                        <HorizontalGridLines />
                         <VerticalGridLines />
-                        <XAxis />
-                        <YAxis />
+                        <HorizontalGridLines />
+                        <DiscreteColorLegend items={graphLegend} orientation="horizontal" />
+                        <XAxis title="Month" />
+                        <YAxis title={user.currency} />
                         {
                             paymentStats.map((monthGroup, index) => {
                                 return <VerticalBarSeries key={`month-${index}`} data={monthGroup} />

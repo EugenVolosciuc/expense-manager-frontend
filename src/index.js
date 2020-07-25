@@ -9,6 +9,7 @@ import './styles/tailwind.output.css'
 import './styles/tailwind.css'
 import './styles/style.css'
 import './styles/hamburger.css'
+import 'react-vis/dist/style.css'
 
 const AlertTemplate = ({ style, options, message, close }) => (
 	<div className="p-4 bg-gray-200 rounded mt-4 border-2">
