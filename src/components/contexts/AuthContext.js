@@ -3,14 +3,17 @@ import { withRouter } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { isNull } from 'lodash'
 import { cache } from 'swr'
+import { useAlert } from 'react-alert'
 
-import API from '../../services/api'
+import { API, requestErrorHandler } from '../../services'
 
 export const AuthContext = createContext()
 
 const AuthProviderWithoutRouter = ({ children, history }) => {
     const [user, setUser] = useState(null)
     const [userIsLoading, setUserIsLoading] = useState(true)
+
+    const alert = useAlert()
 
     useEffect(() => {
         if (!isNull(user)) {
@@ -42,7 +45,7 @@ const AuthProviderWithoutRouter = ({ children, history }) => {
             await API.post('/users', {...data})
             history.push('/auth/login')
         } catch (error) {
-            console.log(error)
+            requestErrorHandler(error, alert)
         }
     }
 
@@ -53,7 +56,7 @@ const AuthProviderWithoutRouter = ({ children, history }) => {
             Cookies.set('EAauthToken', token, { expires: 2 })
             setUser(userData.user)
         } catch (error) {
-            console.log(error)
+            requestErrorHandler(error, alert)
         }
     }
 
@@ -64,7 +67,7 @@ const AuthProviderWithoutRouter = ({ children, history }) => {
             cache.clear()
             setUser(null)
         } catch (error) {
-            console.log(error)
+            requestErrorHandler(error, alert)
         }
     }
 

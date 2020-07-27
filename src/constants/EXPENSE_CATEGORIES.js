@@ -34,7 +34,7 @@ const EXPENSE_CATEGORIES = {
     CULTURE: {
         tag: 'CULTURE',
         label: 'Culture',
-        icon: 'fas fa-theater-mask',
+        icon: 'fas fa-theater-masks',
         bgColor: '#5E5C6C',
         textColor: '#FFF',
         chartColorCode: 4
@@ -91,7 +91,7 @@ const EXPENSE_CATEGORIES = {
         tag: 'OTHER',
         label: 'Other',
         icon: 'fas fa-random',
-        bgColor: '#FFFAFF',
+        bgColor: '#E3B505',
         textColor: '#000',
         chartColorCode: 11
     }

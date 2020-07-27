@@ -115,7 +115,6 @@ const PaymentCategoryStatsCard = () => {
     
     const graphLegend = Object.values(payments).reduce((accumulatorArr, monthGroup) => {
         Object.entries(monthGroup).forEach(([categoryTag, payments]) => {
-            console.log(accumulatorArr)
             if (!accumulatorArr.some(legendItem => legendItem.title === EXPENSE_CATEGORIES[categoryTag].label)) {
                 accumulatorArr.push({
                     title: EXPENSE_CATEGORIES[categoryTag].label,
@@ -127,8 +126,6 @@ const PaymentCategoryStatsCard = () => {
 
         return accumulatorArr
     }, [])
-
-    console.log(graphLegend)
 
     return (
         <Card

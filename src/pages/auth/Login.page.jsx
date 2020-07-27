@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import BaseLayout from '../../components/layouts/BaseLayout.component'
-import { Input, Button } from '../../components/UI'
+import { Input, Button, InputError } from '../../components/UI'
 import useAuth from '../../components/contexts/AuthContext'
 
 const Login = () => {
-    const { register, handleSubmit, watch, errors } = useForm()
+    const [isLoading, setIsLoading] = useState(false)
+
+    const { register, handleSubmit, errors } = useForm()
     const { loading, login, isAuthenticated } = useAuth() // TODO: add loader to btn
 
-    const onSubmit = data => login(data.email, data.password)
+    const onSubmit = data => {
+        setIsLoading(true)
+        login(data.email, data.password)
+        setIsLoading(false)
+    }
 
     return (
         <BaseLayout>
@@ -17,10 +23,11 @@ const Login = () => {
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col">
-                    {/* TODO: add error inputs */}
-                    <Input label="Email" name="email" type="email" hookRef={register({ required: true })} />
-                    <Input label="Password" name="password" type="password" hookRef={register({ required: true })} />
-                    <Button>Log In</Button>
+                    <Input label="Email" name="email" type="email" hookRef={register({ required: 'Email is required to log in' })} />
+                    <InputError errors={errors} name="email" />
+                    <Input label="Password" name="password" type="password" hookRef={register({ required: 'Password is required to log in' })} />
+                    <InputError errors={errors} name="password" />
+                    <Button loading={isLoading}>Log In</Button>
                 </form>
             </div>
         </BaseLayout>
